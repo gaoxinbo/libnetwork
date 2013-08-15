@@ -1,3 +1,6 @@
+#ifndef _NETWORK_GUARD_H_
+#define _NETWORK_GUARD_H_
+
 #include "Mutex.h"
 
 namespace network{
@@ -15,3 +18,5 @@ class Guard{
 };
 
 }
+
+#endif

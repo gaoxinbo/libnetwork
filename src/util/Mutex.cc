@@ -18,4 +18,8 @@ void Mutex::Unlock(){
   pthread_mutex_unlock(&mutex_);
 }
 
+pthread_mutex_t * Mutex::Get(){
+  return &mutex_;
+}
+
 }

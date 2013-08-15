@@ -1,3 +1,5 @@
+#ifndef _NETWORK_MUTEX_H_
+#define _NETWORK_MUTEX_H_
 #include "pthread.h"
 
 namespace network{
@@ -10,6 +12,8 @@ class Mutex {
     void Lock();
     void Unlock();
 
+    pthread_mutex_t * Get();
+
   private:
     pthread_mutex_t mutex_;
   private:
@@ -18,3 +22,4 @@ class Mutex {
 };
 
 }
+#endif
