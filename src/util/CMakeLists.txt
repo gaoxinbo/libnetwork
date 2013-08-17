@@ -1,1 +1,2 @@
-add_library(util Mutex.cc Guard.cc Condition.cc)
+aux_source_directory(. files)
+add_library(util ${files})
