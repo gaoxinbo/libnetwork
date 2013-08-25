@@ -29,13 +29,13 @@ class Address {
       return ip_; 
     }
 
+    Address(const Address&);
+    Address & operator=(const Address&);
+
   private:
     short port_;
     std::string ip_;
 
-  private:
-    Address(const Address&);
-    void operator=(const Address&);
 };
 
 }  // namespace network

@@ -11,6 +11,7 @@ namespace network {
 
 Address::Address(){
   port_ = INADDR_ANY;
+  ip_ = "192.168.0.1";
 }
 
 Address::~Address(){
@@ -18,6 +19,21 @@ Address::~Address(){
 
 Address::Address(short port){
   port_ = port;
+  ip_ = "192.168.0.1";
+}
+
+Address::Address(const Address & addr){
+  ip_ = addr.ip_;
+  port_ = addr.port_;
+}
+
+Address & Address::operator=(const Address & addr){
+  if(this == &addr)
+    return *this;
+  ip_ = addr.ip_;
+  port_ = addr.port_;
+
+  return *this;
 }
 
 Address::Address(string add){
