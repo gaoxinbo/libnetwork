@@ -29,6 +29,10 @@ class Address {
       return ip_; 
     }
 
+    void setPort(short port){
+      port_ = port;
+    }
+
     Address(const Address&);
     Address & operator=(const Address&);
 

@@ -8,6 +8,8 @@
 #define _SOCKET_H_
 
 #include <sys/socket.h>
+#include "core/address.h"
+#include "util/status.h"
 
 namespace network {
 
@@ -16,9 +18,14 @@ class Socket {
     Socket();
     ~Socket();
 
-    bool Create();
+    Status Create();
+    Status listen(Address &addr);
+    int accept();
     bool isValid();
 
+    int getFD(){
+      return fd_;
+    }
     void setNoBlocking();
     void setReuse();
     

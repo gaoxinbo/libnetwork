@@ -10,8 +10,8 @@ using namespace std;
 namespace network {
 
 Address::Address(){
-  port_ = INADDR_ANY;
-  ip_ = "192.168.0.1";
+  port_ = 0;
+  ip_ = "";
 }
 
 Address::~Address(){
@@ -19,7 +19,7 @@ Address::~Address(){
 
 Address::Address(short port){
   port_ = port;
-  ip_ = "192.168.0.1";
+  ip_ = "";
 }
 
 Address::Address(const Address & addr){

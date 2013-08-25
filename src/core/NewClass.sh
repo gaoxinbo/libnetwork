@@ -61,7 +61,7 @@ class ${ClassName} {
 
   private:
     ${ClassName}(const ${ClassName}&);
-    void operator=(const ${ClassName}&);
+    ${ClassName} & operator=(const ${ClassName}&);
 };
 
 `for i in ${ReverseNameSpace};do

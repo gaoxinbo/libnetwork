@@ -7,21 +7,33 @@
 #ifndef _ACCEPTOR_H_
 #define _ACCEPTOR_H_
 
+#include "core/socket.h"
+#include "core/address.h"
+#include "util/status.h"
 #include "iochannel.h"
 
 namespace network {
 
-class acceptor : public IOchannel{
+class Acceptor : public IOchannel{
   public:
-    acceptor();
-    virtual ~acceptor();
+    Acceptor();
+    virtual ~Acceptor();
 
     virtual void handleRead();
     virtual void handleWrite();
 
+    Status listen(short port);
+    int accept();
+    int getFD(){
+      return sock_.getFD();
+    }
+
   private:
-    acceptor(const acceptor&);
-    void operator=(const acceptor&);
+    Socket sock_;
+    Address addr_;
+  private:
+    Acceptor(const Acceptor&);
+    Acceptor & operator=(const Acceptor&);
 };
 
 }  // namespace network

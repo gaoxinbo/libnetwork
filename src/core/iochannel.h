@@ -13,8 +13,8 @@ class IOchannel {
     IOchannel();
     virtual ~IOchannel() = 0;
 
-    virtual void handleRead();
-    virtual void handleWrite();
+    virtual void handleRead() = 0;
+    virtual void handleWrite() = 0;
 
   private:
     IOchannel(const IOchannel&);

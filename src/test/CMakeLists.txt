@@ -1,1 +1,2 @@
-add_subdirectory(core util)
+add_subdirectory(core)
+add_subdirectory(util)
