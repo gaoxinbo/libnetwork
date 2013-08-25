@@ -18,6 +18,10 @@ Socket::~Socket(){
     close(fd_);
 }
 
+bool Socket::isValid(){
+  return fd_ != -1;
+}
+
 bool Socket::Create(){
   if(fd_ != -1)
     close(fd_);

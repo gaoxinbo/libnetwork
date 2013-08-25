@@ -17,6 +17,7 @@ class Socket {
     ~Socket();
 
     bool Create();
+    bool isValid();
     
   private:
     int fd_;
