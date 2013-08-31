@@ -6,7 +6,12 @@
 
 #ifndef _IOCHANNEL_H_
 #define _IOCHANNEL_H_
+
+#include "eventlooper.h"
 namespace network {
+
+
+class EventLooper;
 
 class IOchannel {
   public:
@@ -15,6 +20,11 @@ class IOchannel {
 
     virtual void handleRead() = 0;
     virtual void handleWrite() = 0;
+
+    void setLooper(EventLooper *looper);
+
+  private:
+    EventLooper * looper_;
 
   private:
     IOchannel(const IOchannel&);

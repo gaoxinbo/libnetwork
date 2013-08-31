@@ -9,7 +9,7 @@ using namespace std;
 
 namespace network {
 
-Acceptor::Acceptor(){
+Acceptor::Acceptor():IOchannel(){
 }
 
 Acceptor::~Acceptor(){
