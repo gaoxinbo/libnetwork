@@ -1,8 +1,14 @@
 // Copyright 2013, Gao Xinbo.  All rights reserved.
 // Author: Gao Xinbo gaoxinbo1984@gmail.com
 
+#include <errno.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
 #include <iostream>
 #include "acceptor.h"
+#include "connection.h"
 #include "util/log.h"
 
 using namespace std;
@@ -32,10 +38,25 @@ void Acceptor::handleRead(){
   int ret = 0;
   while(true){
     ret = sock_.accept(); 
-    if(ret<=0)
+    if(ret==0) // errno is EAGAIN 
       return;
 
-    LOG_INFO("network", "new client");
+    if(ret<0){
+      LOG_WARN("accept error %s", strerror(errno));
+    }
+
+    sockaddr_in addr;
+    socklen_t len = sizeof addr;
+    getpeername(ret,(sockaddr*)&addr, &len); 
+    char buf[24];
+    inet_ntop(AF_INET, &addr.sin_addr, buf, 24);
+
+    LOG_INFO("network","new client %s:%d",buf, ntohs(addr.sin_port));
+    Address address(buf,ntohs(addr.sin_port));
+
+    Socket *s = new Socket(ret); 
+    Connection * conn = new Connection(s,address);
+    looper_->addEvent(s->getFD(), conn,kREAD);
   }
 }
 

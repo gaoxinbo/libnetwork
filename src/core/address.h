@@ -20,6 +20,7 @@ class Address {
     Address(short port);
     // ip:port
     Address(std::string add);
+    Address(std::string host, short port);
 
     short getPort(){
       return port_;

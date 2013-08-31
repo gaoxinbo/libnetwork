@@ -23,7 +23,7 @@ class IOchannel {
 
     void setLooper(EventLooper *looper);
 
-  private:
+  protected:
     EventLooper * looper_;
 
   private:

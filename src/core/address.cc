@@ -22,6 +22,11 @@ Address::Address(short port){
   ip_ = "";
 }
 
+Address::Address(string host, short port){
+  ip_ = host;
+  port_ = port;
+}
+
 Address::Address(const Address & addr){
   ip_ = addr.ip_;
   port_ = addr.port_;

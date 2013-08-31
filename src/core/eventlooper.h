@@ -12,6 +12,7 @@
 
 namespace network {
 
+class IOchannel;
 enum ioevent{
   kREAD = 1,
   kWRITE = 2,

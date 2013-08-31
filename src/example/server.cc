@@ -16,6 +16,7 @@ int main(){
     return 1;
   }
   EventLooper looper;
+  acc.setLooper(&looper);
   looper.addEvent(acc.getFD(), &acc, kREAD);
   looper.run();
   while(1){

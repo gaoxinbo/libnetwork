@@ -11,6 +11,9 @@
 #include <arpa/inet.h>
 #include "socket.h"
 
+#include <iostream>
+using namespace std;
+
 namespace network {
 
 Socket::Socket(){
@@ -20,6 +23,10 @@ Socket::Socket(){
 Socket::~Socket(){
   if(fd_ != -1)
     close(fd_);
+}
+
+Socket::Socket(int  fd){
+  fd_ = fd;
 }
 
 bool Socket::isValid(){
@@ -44,7 +51,9 @@ void Socket::setReuse(){
     return;
   
   int val = 1;
-  setsockopt(fd_,SOL_SOCKET,SO_REUSEADDR,&val,sizeof val);
+  int ret = setsockopt(fd_,SOL_SOCKET,SO_REUSEADDR,&val,sizeof val);
+  if(ret == -1)
+    cout<<strerror(errno)<<endl;
 }
 
 void Socket::setNoBlocking(){
@@ -73,12 +82,12 @@ Status Socket::listen(Address & addr){
     return ss;
   }
 
+  setReuse();
+  setNoBlocking();
   if(::listen(fd_,256)==-1){
     ss = Status::IOErrorStatus(strerror(errno)," listen error");
   }
   
-  setReuse();
-  setNoBlocking();
   return ss;
 }
 
@@ -92,6 +101,20 @@ int Socket::accept(){
   else
     return ret;
 }
+
+int Socket::connect(string ip, short port){
+  sockaddr_in addr;
+  addr.sin_family = AF_INET;
+  addr.sin_port = htons(port);
+  int ret = inet_pton(AF_INET,ip.c_str(),&addr.sin_addr);
+  if(ret == -1){
+    return ret;
+  }
+
+  ret = ::connect(fd_,(sockaddr*)&addr, sizeof addr);
+  return ret;
+}
+
 
 }  // namespace network
 

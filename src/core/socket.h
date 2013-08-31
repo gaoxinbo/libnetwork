@@ -17,15 +17,18 @@ class Socket {
   public:
     Socket();
     ~Socket();
+    Socket(int fd);
 
     Status Create();
     Status listen(Address &addr);
     int accept();
     bool isValid();
+    int connect(std::string, short);
 
     int getFD(){
       return fd_;
     }
+
     void setNoBlocking();
     void setReuse();
     

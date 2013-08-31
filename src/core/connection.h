@@ -11,20 +11,22 @@
 #include "core/address.h"
 #include "iochannel.h"
 
-namespace network : public IOchannel{
+namespace network {
 
-class Connection {
+class Connection : public IOchannel {
   public:
     Connection();
+    Connection(Socket *sock,Address addr);
     virtual ~Connection();
 
     virtual void handleRead();
     virtual void handleWrite();
+    Status connect(std::string, short);
 
     static Connection * connect(const Address & addr);
 
   private:
-    Socket sock_;
+    Socket *sock_;
     Address addr_;
   private:
     Connection(const Connection&);
