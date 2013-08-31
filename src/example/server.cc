@@ -18,7 +18,7 @@ int main(){
   EventLooper looper;
   acc.setLooper(&looper);
   looper.addEvent(acc.getFD(), &acc, kREAD);
-  looper.run();
+  looper.start();
   while(1){
     sleep(100);
   }

@@ -1,6 +1,7 @@
 #include <unistd.h>
 #include "core/connection.h"
 #include "util/status.h"
+#include "core/eventlooper.h"
 #include <iostream>
 
 
@@ -14,6 +15,11 @@ int main(){
     cout<<ss.What()<<endl;
     return 1;
   }
+
+  EventLooper looper;
+  conn.setLooper(&looper);
+  looper.addEvent(conn.getFD(),&conn,kREAD);
+  looper.start();
   while(1){
     sleep(1);
   }

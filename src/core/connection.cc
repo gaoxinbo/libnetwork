@@ -3,8 +3,12 @@
 
 #include <errno.h>
 #include <string.h>
+#include <unistd.h>
+
 #include <string>
+
 #include "connection.h"
+#include "util/log.h"
 
 using namespace std;
 namespace network {
@@ -42,9 +46,29 @@ Status Connection::connect(string ip, short port){
 }
 
 void Connection::handleRead(){
+  char buf[1024];
+  int ret = read(sock_->getFD(),buf,1024);
+  if(ret == 0){
+    looper_ -> delEvent(sock_->getFD());
+    LOG_INFO("network"," connection is closed by remote");
+
+    // TODO
+    delete this;
+    return;
+  }
+  return;
 }
 
 void Connection::handleWrite(){
+  return;
+}
+
+int Connection::getFD(){
+  if(sock_!=NULL){
+    return sock_->getFD();
+  }
+  else
+    return -1;
 }
 
 }  // namespace network

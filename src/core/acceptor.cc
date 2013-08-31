@@ -51,11 +51,12 @@ void Acceptor::handleRead(){
     char buf[24];
     inet_ntop(AF_INET, &addr.sin_addr, buf, 24);
 
-    LOG_INFO("network","new client %s:%d",buf, ntohs(addr.sin_port));
+    LOG_INFO("network","new client %s:%d %d",buf, ntohs(addr.sin_port),ret);
     Address address(buf,ntohs(addr.sin_port));
 
     Socket *s = new Socket(ret); 
     Connection * conn = new Connection(s,address);
+    conn->setLooper(looper_);
     looper_->addEvent(s->getFD(), conn,kREAD);
   }
 }

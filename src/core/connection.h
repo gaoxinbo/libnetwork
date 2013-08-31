@@ -21,6 +21,8 @@ class Connection : public IOchannel {
 
     virtual void handleRead();
     virtual void handleWrite();
+
+    int getFD();
     Status connect(std::string, short);
 
     static Connection * connect(const Address & addr);
