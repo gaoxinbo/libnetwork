@@ -24,14 +24,19 @@ class EventLooper {
     ~EventLooper();
 
     int addEvent(int fd, IOchannel * channel, ioevent t);
+    int delEvent(int fd);
   
     void run();
+    void start();
     void stop();
+    static void *run(void *arg);
 
   private:
     int fd_;
     epoll_event * events_;
     int number_;
+    pthread_t pid_;
+    bool stop_;
   private:
     EventLooper(const EventLooper&);
     EventLooper & operator=(const EventLooper&);
