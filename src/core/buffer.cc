@@ -40,10 +40,10 @@ void Buffer::writeChar(char c){
 
 void Buffer::writeInt32(int n){
   expand(sizeof n);
-  buf_[end_++] = (n & 0xff);
-  buf_[end_++] = (n >> 8 & 0xff);
-  buf_[end_++] = (n >> 16 & 0xff);
-  buf_[end_++] = (n >> 24 & 0xff); 
+  buf_[end_++] = n; 
+  buf_[end_++] = n >> 8;
+  buf_[end_++] = n >> 16;
+  buf_[end_++] = n >> 24; 
 }
 
 void Buffer::writeString(const string &s){
@@ -68,10 +68,10 @@ char Buffer::readChar(){
 
 int Buffer::readInt32(){
   int n = 0;
-  n |= buf_[start_++] &0xff;
-  n |= (buf_[start_++]& 0xff)<<8;
-  n |= (buf_[start_++]& 0xff)<<16;
-  n |= (buf_[start_++]& 0xff)<<24;
+  n |= buf_[start_++];
+  n |= buf_[start_++]<<8;
+  n |= buf_[start_++]<<16;
+  n |= buf_[start_++]<<24;
   return n;
 }
 
