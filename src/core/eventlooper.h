@@ -7,7 +7,15 @@
 #ifndef _EVENTLOOPER_H_
 #define _EVENTLOOPER_H_
 
+#ifdef __linux__
 #include <sys/epoll.h>
+#endif
+
+#ifdef __APPLE__
+#include <sys/event.h>
+#endif
+
+#include <pthread.h>
 #include "core/iochannel.h"
 
 namespace network {
@@ -33,7 +41,12 @@ class EventLooper {
 
   private:
     int fd_;
+#ifdef __linux__
     epoll_event * events_;
+#endif
+#ifdef __APPLE__
+    struct kevent * events_;
+#endif
     int number_;
     pthread_t pid_;
     bool stop_;
