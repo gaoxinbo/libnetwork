@@ -54,6 +54,7 @@ void Connection::handleRead(){
 
     // TODO
     delete this;
+
     return;
   }
   return;

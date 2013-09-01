@@ -18,20 +18,20 @@ class Buffer {
     Buffer(int);
     ~Buffer();
 
-  int remain();
-  int expand(int);
-  int readable();
+    int remain();
+    int expand(int);
+    int readable();
 
-  void writeInt32(int);
-  void writeChar(char);
-  void writeString(const std::string &s);
+    void writeInt32(int);
+    void writeChar(char);
+    void writeString(const std::string &s);
 
-  int readInt32();
-  char readChar();
-  std::string readString();
-  
+    int readInt32();
+    char readChar();
+    std::string readString();
+
   private:
-    std::vector<char>  buf_;
+    std::vector<unsigned char>  buf_;
     int start_;
     int end_;
 
