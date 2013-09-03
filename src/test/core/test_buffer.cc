@@ -1,6 +1,7 @@
 #include "gtest/gtest.h" 
 #include "core/buffer.h"
 #include <string>
+#include <iostream>
 
 using namespace std;
 using namespace network;
@@ -51,4 +52,30 @@ TEST(Buffer,RWString){
   EXPECT_EQ(s,"hello world");
 }
 
+TEST(Buffer, Peek){
+  Buffer b;
 
+  int a[] = {300,67000,10000000};
+  for(int i=0;i<sizeof a/sizeof a[0];i++){
+    b.writeInt32(a[i]);
+    int n = b.peekInt32();
+    EXPECT_EQ(b.readable(),4);
+    EXPECT_EQ(n,a[i]);
+    n = b.readInt32();
+    EXPECT_EQ(n,a[i]);
+  }
+
+  for(int i=0;i<26;i++){
+    b.writeChar('a' + i);
+    char c = b.peekChar();
+    EXPECT_EQ(c,'a'+i);
+    c = b.readChar();
+    EXPECT_EQ(c,'a'+i);
+  }
+
+  b.writeString("hello world");
+  string s = b.peekString();
+  EXPECT_EQ(s,"hello world");
+  s = b.readString();
+  EXPECT_EQ(s,"hello world");
+}

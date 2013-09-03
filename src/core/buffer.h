@@ -30,6 +30,10 @@ class Buffer {
     char readChar();
     std::string readString();
 
+    int peekInt32();
+    char peekChar();
+    std::string peekString();
+
   private:
     std::vector<unsigned char>  buf_;
     int start_;

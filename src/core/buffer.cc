@@ -67,12 +67,15 @@ char Buffer::readChar(){
 }
 
 int Buffer::readInt32(){
+  /*
   int n = 0;
   n |= buf_[start_++];
   n |= buf_[start_++]<<8;
   n |= buf_[start_++]<<16;
   n |= buf_[start_++]<<24;
   return n;
+  */
+  return buf_[start_++] | buf_[start_++]<<8 | buf_[start_++]<<16 | buf_[start_++]<<24;
 }
 
 string Buffer::readString(){
@@ -84,6 +87,28 @@ string Buffer::readString(){
   return s;
 }
 
+// make sure there is at least 4 bytes are readable 
+int Buffer::peekInt32(){
+  int n = 0;
+  n |= buf_[start_];
+  n |= buf_[start_+1]<<8;
+  n |= buf_[start_+2]<<16;
+  n |= buf_[start_+3]<<24;
+  return n;
+}
+
+char Buffer::peekChar(){
+  return buf_[start_];
+}
+
+string Buffer::peekString(){
+  int length = peekInt32();
+  string s;
+  for(int i=0;i<length;i++){
+    s += buf_[start_+4+i];
+  }
+  return s;
+}
 
 }  // namespace network
 
